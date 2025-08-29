@@ -9,10 +9,13 @@
 // else
 //     console.log("El numero no es mayor a " + objetivo);
 
-let port = 3008;
+// let port = 3008;
 
-if (port){
-    console.log("Definicion de puerta correcta");
-} else{
-    console.log("Error en puerta")
-}
+// if (port){
+//     console.log("Definicion de puerta correcta");
+// } else{
+//     console.log("Error en puerta")
+// }
+
+let datos = 15 != 15;
+    console.log(datos);
