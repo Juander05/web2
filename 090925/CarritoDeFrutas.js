@@ -27,9 +27,9 @@ function mostrarFrutas(){
 function menu(){
     do{
         option = prompt(`
-            Opciones disponibles: 
-            1. Agregar fruta
-            2. Mostrar frutas
+            Quieres agregar una fruta al carrito? 
+            1. Si, agregar fruta al carrito
+            2. No, mostrar frutas del carrito
             3. Salir
             `);
 
