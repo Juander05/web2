@@ -29,26 +29,22 @@ function agregarAlCarrito(index){
 }
 
 //Funcion para eliminar del carrito
-function eliminarDelCarrito(){
+function eliminarDelCarrito(mensaje){
     if (carrito.length === 0){
         console.log("El carrito esta vacio. ");
     } else{
-        var mensajeCarrito = "Elija que eliminar: \n"
-        for (var i = 0; i < carrito.length; i++){
-            mensajeCarrito += (i + 1) + ". " + carrito[i].nombre + " - $" + carrito[i].precio + "\n";
-        }
-
         //Ingresar el numero de producto a eliminar
-        var productoSeleccionado = prompt(mensajeCarrito);
+        var productoSeleccionado = mostrarCarritoYTotal(mensaje, 1);
         productoSeleccionado = Number(productoSeleccionado);
 
         //Verificar si el producto es valido
-        if(isNaN(productoSeleccionado) || productoSeleccionado < 1 || productoSeleccionado > productos.length){
+        if(isNaN(productoSeleccionado) || productoSeleccionado < 1 || productoSeleccionado > carrito.length){
             console.log("Producto no valido");
         }else{
             //Elimina producto del carrito
-            carrito.splice(productoSeleccionado -1, 1);
-            console.log('Producto "' + productos[productoSeleccionado-1].nombre + '"eliminado del carrito.');
+            var index = productoSeleccionado - 1;
+            var eliminado = carrito.splice(index, 1)[0];
+            console.log('Producto "' + eliminado.nombre + '"eliminado del carrito.');
         }
     }
 }
@@ -75,19 +71,24 @@ function agregarAlCatalogo(){
 
 }
 
-//Funcion para mostrar carrito y total
-function mostrarCarritoYTotal(){
+//Funcion para mostrar carrito y total (0 = alert, 1 = prompt)
+function mostrarCarritoYTotal(mensaje, n){
     if (carrito.length === 0){
         console.log("El carrito está vacio.");
     } else{
-        var mensajeCarrito = "Carrito de compras: \n";
+        var mensajeCarrito = mensaje;
         var total = 0;
         for (var i = 0;  i < carrito.length; i++){
             mensajeCarrito += (i + 1) + ". " + carrito[i].nombre + " - $" + carrito[i].precio + "\n";
             total += carrito[i].precio;
         }
         mensajeCarrito += "\nTotal : $" + total;
-        alert(mensajeCarrito);
+
+        if (n === 0){
+            alert(mensajeCarrito);
+        } else if(n === 1){
+            return prompt(mensajeCarrito);
+        }
     }
 }
 
@@ -108,10 +109,10 @@ function menu(){
             agregarAlCarrito(opcion - 1);
         } else if (opcion === productos.length + 1){
             //Si elige eliminar del carrito
-            eliminarDelCarrito();
+            eliminarDelCarrito("Elija el producto a eliminar: \n");
         } else if (opcion === productos.length + 2){
             //Si elige el carrito y el total
-            mostrarCarritoYTotal();
+            mostrarCarritoYTotal("Carrito de compras: \n", 0);
         } else if(opcion === productos.length + 3){
             //Si elige agregar al catalogo (Solo Admin, preguntara contraseña)
             agregarAlCatalogo();
